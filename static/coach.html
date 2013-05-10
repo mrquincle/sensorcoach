@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>SensorCoach</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SensorCoach uses big data to improve your quality of live. Twitter and other social media are used to your advantage to better your health in analysing online behaviour of you and people like you and engage with you on social media">
+    <meta name="author" content="Anne van Rossum">
+
+    <!-- Style from DO bots -->
+    <link href="../assets/css/dobots.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 10px;
+        padding-bottom: 60px;
+      }
+    </style>
+    <link href="../assets/css/bootstrap-responsive.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Social media icons -->
+    <link rel="stylesheet" href="../assets/css/elusive-webfont.css">
+    <!--[if lt IE 7]>
+      <link rel="stylesheet" href="../assets/css/elusive-webfont-ie7.css">
+    <![endif]-->
+
+    <link rel="shortcut icon" href="ico/favicon.ico">
+
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+     <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Action', 'no action', 'action'],
+          ['encouragement',   100,      40],
+          ['publish goal',    117,      46],
+          ['compliment',       66,     112],
+          ['publish result',  103,      54]
+        ]);
+
+        var options = {
+          title: 'Responsiveness',
+          hAxis: {title: 'Coach action', titleTextStyle: {color: 'blue'}},
+          vAxis: {title: 'Percentage of schedule completed (beyond 100% means more than asked for)', titleTextStyle: {color: 'blue'}}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="http://www.sensorcoach.com">SensorCoach</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="index.html">Home</a></li>
+              <li class="active"><a href="coach.html">Coach</a></li>
+              <li><a href="trainee.html">Trainee</a></li>
+            </ul>
+            <ul class="nav pull-right">
+              <li><a class="btn" href="http://www.almende.com"><i class="icon-home"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="hero-unit">
+      <h1>Overview trainees</h1><br/>
+      <p>
+      An overview of your trainees. The success factor is a subjective measure that is indicated by the participant and reflects in how much they consider the current program working for them.</p>
+      <p>
+        <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Intensity (hrs/month)</th>
+                  <th>Last activity</th>
+                  <th>Success Factor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="success">
+                  <td>Piet Paulusma</td>
+                  <td>10</td>
+                  <td>01/04/2013</td>
+                  <td>Optimistic</td>
+                </tr>
+                <tr class="error">
+                  <td>Willem-Alexander van Oranje</td>
+                  <td>1</td>
+                  <td>10/04/2013</td>
+                  <td>Gloomy</td>
+                </tr>
+                <tr class="warning">
+                  <td>Erica Terpstra</td>
+                  <td>1</td>
+                  <td>03/01/2013</td>
+                  <td>Too busy</td>
+                </tr>
+                <tr class="info">
+                  <td>Paul de Leeuw</td>
+                  <td>5</td>
+                  <td>05/05/2013</td>
+                  <td>Optimistic</td>
+                </tr>
+              </tbody>
+            </table>
+      </p>
+      <br/>
+      <h2>Coaching strategy for Piet Paulusma</h2>
+      <p>
+      Every person is unique. This page will reflect the best responses of the given trainee. Just as a doctor would want to know the results of giving certain medicines to her patients, this page will reflect the history of the trainee given the action you as coach undertook.
+      </p>
+    <div class="row">
+        <div class="span5">
+      <p>
+     	<div class="input-prepend">
+          <div class="btn-group">
+            <button class="btn dropdown-toggle" data-toggle="dropdown">
+               Action
+               <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+               <li>Send encouragement</li>
+               <li>Send reminder</li>
+            </ul>
+         </div>
+         <input class="span2" id="prependedDropdownButton" type="text">
+        </div>
+         <label class="checkbox">
+            <input type="checkbox"> Make this action public (on Twitter)
+         </label>
+      </p>
+    </div>
+        <div class="span5">
+      <p class="text-info">
+        <small>Overall mood on Twitter:</small>
+        <br/> <code>sleepy</code>
+      </p>
+      </div>
+    </div>
+
+
+      <!-- move center tag to css -->
+      <p><center>
+         <div id="chart_div" style="align: center; width: 900px; height: 500px;"></div>
+      </center></p>
+
+      <p>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn">Cancel</button>
+      </div>
+      </p>
+
+      </div> <!-- /hero-unit --> 
+ 
+      <hr>
+
+      <footer>
+        <p>&copy; Almende B.V. 2013</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../assets/js/jquery-1.7.2.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
