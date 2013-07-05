@@ -6,7 +6,8 @@ var express = require('express'),
 
 var _twitterConsumerKey = process.env['TWITTER_CONSUMER_KEY'];
 var _twitterConsumerSecret = process.env['TWITTER_CONSUMER_SECRET'];
- 
+var _domain = process.env['DOMAIN'] || 'http://sensorcoach.heroku.com';
+
 var app = module.exports = express();
 app.use(express.logger());
 
@@ -19,6 +20,7 @@ app.use(express.session({secret: "aha-erlebniss"}));
 app.use(express.methodOverride());
 app.use(app.router);
 
+// This is the express 3 way of storing a session
 app.use(function(req, res){
     res.locals = req.session;
 });
@@ -27,13 +29,17 @@ app.listen(port, function() {
   console.log("Listening on " + port);
 });
 
+// Let's create a new OAuth object every time following an example... I just don't get javascript.
 function consumer() {
   return new oauth.OAuth(
     "https://api.twitter.com/oauth/request_token", "https://api.twitter.com/oauth/access_token", 
-    _twitterConsumerKey, _twitterConsumerSecret, "1.0A", "http://sensorcoach.heroku.com/sessions/callback", "HMAC-SHA1");   
+    _twitterConsumerKey, _twitterConsumerSecret, "1.0A", _domain+"/sessions/callback", "HMAC-SHA1");   
 }
 
-
+/*
+ This function can be called in the browser and works perfect, however, calling it from AngularJS does not make it work. I have the idea that actually no 
+ response object is send back, but that the browser does time out, while there is a redirect "in the background", which is not made visible to the user.
+ */
 app.get('/sessions/connect', function(req, res){
   consumer().getOAuthRequestToken(function(error, oauthToken, oauthTokenSecret, results){
     if (error) {
@@ -69,25 +75,4 @@ app.get('/sessions/callback', function(req, res){
       });  
     }
   });
-});
-
-app.post('/contact', function(req, res) {
-	var mailForm = req.body;
-    var sendgrid = new SendGrid(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
-    sendgrid.send({
-    	to: 'anne@dobots.nl',
-    	toname: 'rest4phone team',
-    	from: mailForm.email,
-    	fromname: mailForm.name,
-	    subject: mailForm.subject,
-	    text: mailForm.message_body
-    }, function(success, response) {
-    	if(!success) {
-    	  console.log('Failure to send email');
-		  res.send({ success: false });
-    	} else {
-    	  console.log('Email successfully sent');
-   	      res.send({ success: true });
-    	}
-    });
 });
