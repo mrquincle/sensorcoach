@@ -29,7 +29,7 @@ app.listen(port, function() {
 
 function consumer() {
   return new oauth.OAuth(
-    "https://twitter.com/oauth/request_token", "https://twitter.com/oauth/access_token", 
+    "https://api.twitter.com/oauth/request_token", "https://api.twitter.com/oauth/access_token", 
     _twitterConsumerKey, _twitterConsumerSecret, "1.0A", "http://sensorcoach.heroku.com/sessions/callback", "HMAC-SHA1");   
 }
 
@@ -41,7 +41,7 @@ app.get('/sessions/connect', function(req, res){
     } else {  
       req.session.oauthRequestToken = oauthToken;
       req.session.oauthRequestTokenSecret = oauthTokenSecret;
-      res.redirect("https://twitter.com/oauth/authorize?oauth_token="+req.session.oauthRequestToken);      
+      res.redirect("https://api.twitter.com/oauth/authorize?oauth_token="+req.session.oauthRequestToken);      
     }
   });
 });
@@ -58,7 +58,7 @@ app.get('/sessions/callback', function(req, res){
       req.session.oauthAccessToken = oauthAccessToken;
       req.session.oauthAccessTokenSecret = oauthAccessTokenSecret;
       // Right here is where we would write out some nice user stuff
-      consumer().get("http://twitter.com/account/verify_credentials.json", req.session.oauthAccessToken, req.session.oauthAccessTokenSecret, function (error, data, response) {
+      consumer().get("https://api.twitter.com/1/account/verify_credentials.json", req.session.oauthAccessToken, req.session.oauthAccessTokenSecret, function (error, data, response) {
         if (error) {
           res.send("Error getting twitter screen name : " + sys.inspect(error), 500);
         } else {
