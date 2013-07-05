@@ -16,6 +16,7 @@ app.use('/assets', express.static(__dirname + '/assets'));
 app.use(express.static(__dirname + '/static'));
 
 app.use(express.bodyParser());
+app.use(express.cookieParser());
 app.use(express.session({secret: "aha-erlebniss"}));
 app.use(express.methodOverride());
 app.use(app.router);
