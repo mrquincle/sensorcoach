@@ -58,7 +58,7 @@ app.get('/sessions/callback', function(req, res){
       req.session.oauthAccessToken = oauthAccessToken;
       req.session.oauthAccessTokenSecret = oauthAccessTokenSecret;
       // Right here is where we would write out some nice user stuff
-      consumer().get("https://api.twitter.com/1/account/verify_credentials.json", req.session.oauthAccessToken, req.session.oauthAccessTokenSecret, function (error, data, response) {
+      consumer().get("https://api.twitter.com/1.1/account/verify_credentials.json", req.session.oauthAccessToken, req.session.oauthAccessTokenSecret, function (error, data, response) {
         if (error) {
           res.send("Error getting twitter screen name : " + sys.inspect(error), 500);
         } else {
