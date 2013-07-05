@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app>
   <head>
     <meta charset="utf-8">
     <title>SensorCoach</title>
@@ -34,6 +34,7 @@
 
   <body>
 
+     <form ng-submit="submit()" ng-controller="LoginCtrl">
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -48,10 +49,11 @@
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="coach.html">Coach</a></li>
               <li><a href="trainee.html">Trainee</a></li>
-<!--
-              <li><a href="contact.html">Submit your idea</a></li>
--->            </ul>
+            </ul>
             <ul class="nav pull-right">
+              <li>
+                 <button class="btn-primary" type="submit" value=""><i class="icon-twitter"></i> {{welcome}}</button>
+              </li>
 <!--
               <li><a class="btn" href="http://www.linkedin.com/company/do-distributed-organisms-/"><i class="icon-linkedin"></i></a></li>
               <li><a class="btn" href="http://www.youtube.com/distributedorganisms"><i class="icon-youtube"></i></a></li>
@@ -63,10 +65,11 @@
         </div>
       </div>
     </div>
+    </form>
 
-    <div class="container">
-
+   <div class="container">
       <!-- Main message -->
+      
       <div class="hero-unit">
         <h1>SensorCoach</h1><img src="../assets/img/tennisrackets.png" alt="Tennis rackets" style="float:right;margin:0 0 15px 15px;"/><br/>
 <blockquote>
@@ -92,6 +95,9 @@ This work is done with many partners in the COMMIT P3 project, if you want to le
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="../assets/js/jquery-1.7.2.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/angular.min.js"></script>
+    <script src="../assets/js/twitter.js"></script>
+
   </body>
 </html>
 

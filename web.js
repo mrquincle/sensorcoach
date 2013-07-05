@@ -46,7 +46,6 @@ app.get('/sessions/connect', function(req, res){
   });
 });
 
-
 app.get('/sessions/callback', function(req, res){
   sys.puts(">>"+req.session.oauthRequestToken);
   sys.puts(">>"+req.session.oauthRequestTokenSecret);
