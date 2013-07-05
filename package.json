@@ -4,7 +4,8 @@
   "dependencies": {
     "express": "3.1.x",
     "sendgrid": "0.2.x",
-    "bird": "0.3.x"
+    "oauth": "0.9.x",
+    "util": "0.4.x"
   },
   "engines": {
     "node": "0.10.x",
