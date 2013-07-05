@@ -3,11 +3,9 @@ function LoginCtrl($scope, $http) {
 
   $scope.submit = function() {
 
-    $http.get('/sessions/connect').success(function(response)
-    {
-      if (response.success) {
-        $scope.welcome = response.body;
-      } 
+    $http({method: 'GET', url: '/sessions/connect'}).
+    success(function(data, status, header, config) {
+        $scope.welcome = data;
     });
   };
 }
