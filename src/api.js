@@ -60,6 +60,10 @@ var coach_api = new function() {
 
 	// Create the API routes
 	this.createAPI = function(app) {
+		
+		app.get(self.endpoint, function(req, res) {
+			res.send('There are individual REST API endpoints you can use. Check the documentation on <a href="https://github.com/mrquincle/sensorcoach">github</a>.');
+		});
 
 		/**
 		 * The GPS location is an important part of the type of data we would like from the user because it 
