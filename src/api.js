@@ -61,7 +61,16 @@ var coach_api = new function() {
 	// Create the API routes
 	this.createAPI = function(app) {
 
-		// GET GPS
+		/**
+		 * The GPS location is an important part of the type of data we would like from the user because it 
+		 * allows us (combined with time data) to retrieve weather conditions at that location. The weather can
+		 * have a big influence on someone's willingness to get active.
+		 *
+		 * Moreover, it might very well be that people react upon motivational messages in certain parts of the
+		 * world in a way that correlates with their geological region. This does not only need to do with 
+		 * character traits that are shared by certain nationalities, but also habbits, such as when to eat or
+		 * when to sleep.
+		 */
 		app.get(self.endpoint + self.endpoint_gps, function(req, res) {
 			console.log('Send GPS location ' + self.data.gps + ' to user');
 			res.send('' + self.data.gps);
@@ -81,7 +90,15 @@ var coach_api = new function() {
 			}
 		});
 
-		// GET age
+		/*
+		 * Another distinctive factor might be age. It might very well be that people that are older, but who
+		 * are able to run long distances are especially sensitive to motivational messages that make them 
+		 * feel old. 
+		 *
+		 * It might also be the case that sleeping habbits consistently change over someone's lifetime and 
+		 * comparisons between people from the same age are considered more fair by people who like
+		 * achievements.
+		 */
 		app.get(self.endpoint + self.endpoint_age, function(req, res) {
 			console.log('Send age ' + self.data.age + ' to user');
 			res.send('' + self.data.age);
@@ -101,7 +118,10 @@ var coach_api = new function() {
 			}
 		});
 
-		// GET gender
+		/*
+		 * Security might be an issue for suggestions to run at certain times of the day that have to do with
+		 * gender.
+		 */
 		app.get(self.endpoint + self.endpoint_gender, function(req, res) {
 			console.log('Send gender ' + self.data.gender + ' to user');
 			res.send('' + self.data.gender);
@@ -121,13 +141,39 @@ var coach_api = new function() {
 			}
 		});
 
-		// GET gender
-		app.get(self.endpoint + self.endpoint_recommendation, function(req, res) {
-			console.log('Send gender ' + self.data.gender + ' to user');
-			res.send('' + self.data.gender);
+		/**
+		 * A training sample should have the following fields:
+		 *
+		 	self.train = {
+				recommendation = {
+					'type': 'challenge',
+					'timestamp': 0,
+					'content': ''
+				},
+				'data' = {
+					'gps': 45,
+					'age': 22,
+					'gender': 'male',
+					'sense-id': 'for previous CommonSense records',
+					'twitter-id': 'for public messages'
+					'facebook-id': 'for public messages'
+				},
+				'success': true
+			}
+		 *
+		 */
+		app.post(self.endpoint + self.endpoint_train, function(req, res) {
+			var train = req.body.train;
+			if (!gender) {
+				console.log('Post train, but there is no training data object in request body');
+				console.log('Request body: ', req.body);
+				res.send('Failure');
+				return;
+			}
+			console.log('Post train: ', train);
+			self.data.train = train;
+			res.send('Success');
 		});
-
-		
 	}
 }
 
