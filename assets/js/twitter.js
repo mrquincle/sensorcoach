@@ -5,14 +5,17 @@ function LoginCtrl($scope, $http, $location) {
   $http.defaults.useXDomain = true;
 
   $scope.submit = function() {
-
-    $http({method: 'GET', url: '/sessions/connect'}).
+    window.location = "/sessions/connect";
+/*    $http({method: 'GET', url: '/sessions/connect'}).
     success(function(data, status) {
         $scope.welcome = data;
+        //$location.absUrl(data); 
+        //$location.replace(); // does not work cross-site
     }).
     error(function(response) {
       // I do not get any content for "response", it's empty
       $scope.welcome = "Request failed (response=" + response + ")";
     });
+*/
   };
 }
